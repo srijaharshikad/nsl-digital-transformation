@@ -7,6 +7,8 @@ import FarmerPlatform from './components/FarmerPlatform.jsx';
 import SupplyChainESG from './components/SupplyChainESG.jsx';
 import NSLChatbot from './components/NSLChatbot.jsx';
 import ProactiveOnboarding from './components/ProactiveOnboarding.jsx';
+import LanguageSelector from './components/LanguageSelector.jsx';
+import { useLanguage } from './contexts/LanguageContext.jsx';
 
 // --- Mock Data ---
 const mockYield = [
@@ -28,6 +30,7 @@ const mockInventory = [
 // --- Components ---
 function TopNav({active, setActive}){
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { language, changeLanguage, t } = useLanguage();
 
   return (
     <>
@@ -53,7 +56,7 @@ function TopNav({active, setActive}){
             fontWeight:"700",
             letterSpacing:"-0.025em"
           }}>
-            🌱 NSL Sugars
+            {t('header.title')}
           </h2>
           <p style={{
             margin:0,
@@ -62,7 +65,7 @@ function TopNav({active, setActive}){
             fontSize:"0.75rem",
             display: window.innerWidth < 640 ? 'none' : 'block'
           }}>
-            Digital Transformation
+            {t('header.subtitle')}
           </p>
         </div>
 
@@ -78,26 +81,31 @@ function TopNav({active, setActive}){
             className={`nav-button ${active === 'overview' ? 'active' : ''}`}
             onClick={()=>setActive('overview')}
           >
-            🏠 <span className="hidden-mobile">Overview</span>
+            🏠 <span className="hidden-mobile">{t('nav.overview')}</span>
           </button>
           <button 
             className={`nav-button ${active === 'solutions' ? 'active' : ''}`}
             onClick={()=>setActive('solutions')}
           >
-            💡 <span className="hidden-mobile">Solutions</span>
+            💡 <span className="hidden-mobile">{t('nav.solutions')}</span>
           </button>
           <button 
             className={`nav-button ${active === 'demo' ? 'active' : ''}`}
             onClick={()=>setActive('demo')}
           >
-            🚀 <span className="hidden-mobile">Live Demo</span>
+            🚀 <span className="hidden-mobile">{t('nav.liveDemo')}</span>
           </button>
           <button 
             className={`nav-button ${active === 'roadmap' ? 'active' : ''}`}
             onClick={()=>setActive('roadmap')}
           >
-            📅 <span className="hidden-mobile">Roadmap</span>
+            📅 <span className="hidden-mobile">{t('nav.roadmap')}</span>
           </button>
+          
+          <LanguageSelector 
+            currentLanguage={language}
+            onLanguageChange={changeLanguage}
+          />
         </div>
 
         {/* Mobile Menu Button */}
@@ -140,29 +148,43 @@ function TopNav({active, setActive}){
               onClick={()=>{setActive('overview'); setMobileMenuOpen(false);}}
               style={{ justifyContent: 'flex-start' }}
             >
-              🏠 Overview
+              🏠 {t('nav.overview')}
             </button>
             <button 
               className={`nav-button ${active === 'solutions' ? 'active' : ''}`}
               onClick={()=>{setActive('solutions'); setMobileMenuOpen(false);}}
               style={{ justifyContent: 'flex-start' }}
             >
-              💡 Solutions
+              💡 {t('nav.solutions')}
             </button>
             <button 
               className={`nav-button ${active === 'demo' ? 'active' : ''}`}
               onClick={()=>{setActive('demo'); setMobileMenuOpen(false);}}
               style={{ justifyContent: 'flex-start' }}
             >
-              🚀 Live Demo
+              🚀 {t('nav.liveDemo')}
             </button>
             <button 
               className={`nav-button ${active === 'roadmap' ? 'active' : ''}`}
               onClick={()=>{setActive('roadmap'); setMobileMenuOpen(false);}}
               style={{ justifyContent: 'flex-start' }}
             >
-              📅 Roadmap
+              📅 {t('nav.roadmap')}
             </button>
+            
+            <div style={{ 
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              marginTop: '0.75rem',
+              paddingTop: '0.75rem'
+            }}>
+              <LanguageSelector 
+                currentLanguage={language}
+                onLanguageChange={(lang) => {
+                  changeLanguage(lang);
+                  setMobileMenuOpen(false);
+                }}
+              />
+            </div>
           </div>
         </div>
       )}
@@ -172,6 +194,7 @@ function TopNav({active, setActive}){
 
 // Hero Section Component
 function HeroSection() {
+  const { t } = useLanguage();
   return (
     <div className="container" style={{
       padding: "5rem 1rem 3rem",
@@ -200,7 +223,7 @@ function HeroSection() {
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent"
         }}>
-          🌱 NSL Sugars Digital Future
+          {t('hero.title')}
         </h1>
         
         <p className="text-lg" style={{
@@ -210,8 +233,7 @@ function HeroSection() {
           margin: "0 auto 2rem",
           lineHeight: 1.6
         }}>
-          Transforming agriculture through AI-powered solutions, digital twins, and sustainable innovation. 
-          From farm to factory, we're building the future of sugar production.
+          {t('hero.subtitle')}
         </p>
         
         <div className="grid grid-cols-1 grid-cols-md-3" style={{
@@ -231,7 +253,7 @@ function HeroSection() {
             }}>
               <TrendingUp size={30} color="white" />
             </div>
-            <h3 style={{ color: "white", marginBottom: "0.5rem" }}>₹9 Cr Investment</h3>
+            <h3 style={{ color: "white", marginBottom: "0.5rem" }}>{t('hero.investment')}</h3>
             <p style={{ color: "rgba(255, 255, 255, 0.7)" }}>Total digital transformation budget</p>
           </div>
           

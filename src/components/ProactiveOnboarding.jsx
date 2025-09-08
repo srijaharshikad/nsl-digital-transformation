@@ -13,6 +13,7 @@ import {
   ChevronRight,
   MessageCircle
 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 // Onboarding steps
 const onboardingSteps = [
@@ -358,6 +359,7 @@ export default function ProactiveOnboarding({ onComplete, onNavigate, onShowChat
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [hasSeenOnboarding, setHasSeenOnboarding] = useState(false);
+  const { t } = useLanguage();
 
   // Check if user has seen onboarding before
   useEffect(() => {

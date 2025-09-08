@@ -15,6 +15,7 @@ import {
   Globe,
   Leaf
 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 // NSL Knowledge Base
 const nslKnowledgeBase = {
@@ -379,6 +380,7 @@ export default function NSLChatbot({ onNavigate }) {
   const [isTyping, setIsTyping] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
   const messagesEndRef = useRef(null);
+  const { t } = useLanguage();
 
   // Auto-show welcome after 3 seconds
   useEffect(() => {
@@ -393,7 +395,7 @@ export default function NSLChatbot({ onNavigate }) {
   // Initialize with welcome message
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      const welcomeMessages = conversationFlow.welcome.map((text, index) => ({
+      const welcomeMessages = t('chatbot.welcome').map((text, index) => ({
         id: Date.now() + index,
         text,
         isBot: true,
@@ -406,12 +408,12 @@ export default function NSLChatbot({ onNavigate }) {
         text: "Choose what you'd like to explore:",
         isBot: true,
         timestamp: new Date(),
-        actions: conversationFlow.quickActions
+        actions: t('chatbot.quickActions')
       });
       
       setMessages(welcomeMessages);
     }
-  }, [isOpen, messages.length]);
+  }, [isOpen, messages.length, t]);
 
   // Listen for navigation events
   useEffect(() => {
@@ -609,14 +611,14 @@ export default function NSLChatbot({ onNavigate }) {
                 fontSize: '1rem',
                 fontWeight: '600'
               }}>
-                NSL Digital Assistant
+                {t('chatbot.title')}
               </h3>
               <p style={{
                 margin: 0,
                 color: 'rgba(255, 255, 255, 0.7)',
                 fontSize: '0.75rem'
               }}>
-                Your guide to ₹9 Cr transformation
+                {t('chatbot.subtitle')}
               </p>
             </div>
           </div>
@@ -714,7 +716,7 @@ export default function NSLChatbot({ onNavigate }) {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask me about NSL's digital transformation..."
+                placeholder={t('chatbot.placeholder')}
                 style={{
                   flex: 1,
                   background: 'rgba(255, 255, 255, 0.05)',
