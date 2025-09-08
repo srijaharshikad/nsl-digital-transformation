@@ -298,29 +298,31 @@ function HeroSection() {
 
 // Challenges Section
 function ChallengesSection() {
+  const { t } = useLanguage();
+  
   const challenges = [
     {
       icon: Factory,
-      title: "Operational Inefficiencies",
-      description: "Frequent downtime, energy waste, and manual monitoring processes",
+      title: t('challenges.operationalInefficiencies.title'),
+      description: t('challenges.operationalInefficiencies.description'),
       color: "#ef4444"
     },
     {
       icon: Truck,
-      title: "Fragmented Supply Chain",
-      description: "Smallholder farmer base with procurement delays and poor visibility",
+      title: t('challenges.fragmentedSupplyChain.title'),
+      description: t('challenges.fragmentedSupplyChain.description'),
       color: "#f59e0b"
     },
     {
       icon: BarChart3,
-      title: "Market Volatility",
-      description: "Unpredictable sugar/ethanol demand and pricing fluctuations",
+      title: t('challenges.marketVolatility.title'),
+      description: t('challenges.marketVolatility.description'),
       color: "#8b5cf6"
     },
     {
       icon: Shield,
-      title: "Regulatory Pressures",
-      description: "Ethanol blending mandates, ESG reporting, and carbon compliance",
+      title: t('challenges.regulatoryPressures.title'),
+      description: t('challenges.regulatoryPressures.description'),
       color: "#06b6d4"
     }
   ];
