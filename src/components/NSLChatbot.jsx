@@ -167,39 +167,36 @@ const conversationFlow = {
 };
 
 // Smart response generator
-function generateResponse(message, context = {}) {
+function generateResponse(message, context = {}, t) {
   const msg = message.toLowerCase();
   
   // Solution-specific queries
   if (msg.includes('farmer') || msg.includes('agriculture') || msg.includes('payment')) {
-    const solution = nslKnowledgeBase.solutions['farmer-platform'];
     return {
-      text: `🌾 **${solution.name}**\n\n💰 Investment: ${solution.investment}\n📈 ROI: ${solution.roi}\n\n**Key Features:**\n${solution.features.map(f => `• ${f}`).join('\n')}\n\nWould you like to try the live demo?`,
+      text: `🌾 **${t('solutions.farmerPlatform.name')}**\n\n💰 ${t('common.investment')}: ${t('solutions.farmerPlatform.investment')}\n📈 ROI: ${t('solutions.farmerPlatform.roi')}\n\n**${t('common.keyFeatures')}:**\n${t('solutions.farmerPlatform.features').map(f => `• ${f}`).join('\n')}\n\n${t('chatbot.tryDemo')}?`,
       actions: [
-        { id: 'demo-farmer', text: '🚀 Try Farmer Demo', action: 'navigate', target: 'demo', demo: 'farmer' },
-        { id: 'learn-more-farmer', text: '📖 Learn More', action: 'explain', topic: 'farmer-benefits' }
+        { id: 'demo-farmer', text: `🚀 ${t('chatbot.tryDemo')} ${t('solutions.farmerPlatform.name')}`, action: 'navigate', target: 'demo', demo: 'farmer' },
+        { id: 'learn-more-farmer', text: `📖 ${t('common.learnMore')}`, action: 'explain', topic: 'farmer-benefits' }
       ]
     };
   }
   
   if (msg.includes('digital twin') || msg.includes('iot') || msg.includes('maintenance') || msg.includes('plant')) {
-    const solution = nslKnowledgeBase.solutions['digital-twin'];
     return {
-      text: `🤖 **${solution.name}**\n\n💰 Investment: ${solution.investment}\n📈 ROI: ${solution.roi}\n\n**Key Features:**\n${solution.features.map(f => `• ${f}`).join('\n')}\n\nThis reduces downtime by 10% and cuts maintenance costs by 25%!`,
+      text: `🤖 **${t('solutions.digitalTwin.name')}**\n\n💰 ${t('common.investment')}: ${t('solutions.digitalTwin.investment')}\n📈 ROI: ${t('solutions.digitalTwin.roi')}\n\n**${t('common.keyFeatures')}:**\n${t('solutions.digitalTwin.features').map(f => `• ${f}`).join('\n')}\n\nThis reduces downtime by 10% and cuts maintenance costs by 25%!`,
       actions: [
-        { id: 'demo-twin', text: '🚀 Try Digital Twin Demo', action: 'navigate', target: 'demo', demo: 'twin' },
-        { id: 'learn-more-twin', text: '📖 Learn More', action: 'explain', topic: 'twin-benefits' }
+        { id: 'demo-twin', text: `🚀 ${t('chatbot.tryDemo')} ${t('solutions.digitalTwin.name')}`, action: 'navigate', target: 'demo', demo: 'twin' },
+        { id: 'learn-more-twin', text: `📖 ${t('common.learnMore')}`, action: 'explain', topic: 'twin-benefits' }
       ]
     };
   }
   
   if (msg.includes('supply chain') || msg.includes('esg') || msg.includes('sustainability') || msg.includes('carbon')) {
-    const solution = nslKnowledgeBase.solutions['supply-chain'];
     return {
-      text: `🌱 **${solution.name}**\n\n💰 Investment: ${solution.investment}\n📈 ROI: ${solution.roi}\n\n**Key Features:**\n${solution.features.map(f => `• ${f}`).join('\n')}\n\nThis solution positions NSL as a sustainability leader!`,
+      text: `🌱 **${t('solutions.supplyChain.name')}**\n\n💰 ${t('common.investment')}: ${t('solutions.supplyChain.investment')}\n📈 ROI: ${t('solutions.supplyChain.roi')}\n\n**${t('common.keyFeatures')}:**\n${t('solutions.supplyChain.features').map(f => `• ${f}`).join('\n')}\n\nThis solution positions NSL as a sustainability leader!`,
       actions: [
-        { id: 'demo-supply', text: '🚀 Try Supply Chain Demo', action: 'navigate', target: 'demo', demo: 'supply' },
-        { id: 'learn-more-supply', text: '📖 Learn More', action: 'explain', topic: 'supply-benefits' }
+        { id: 'demo-supply', text: `🚀 ${t('chatbot.tryDemo')} ${t('solutions.supplyChain.name')}`, action: 'navigate', target: 'demo', demo: 'supply' },
+        { id: 'learn-more-supply', text: `📖 ${t('common.learnMore')}`, action: 'explain', topic: 'supply-benefits' }
       ]
     };
   }
@@ -456,7 +453,7 @@ export default function NSLChatbot({ onNavigate }) {
 
     // Simulate AI thinking time
     setTimeout(() => {
-      const response = generateResponse(inputValue);
+      const response = generateResponse(inputValue, {}, t);
       const botMessage = {
         id: Date.now() + 1,
         ...response,

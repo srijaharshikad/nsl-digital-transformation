@@ -874,6 +874,7 @@ function SolutionsPage() {
 // Demo Page Component
 function DemoPage() {
   const [activeDemo, setActiveDemo] = useState('farmer');
+  const { t } = useLanguage();
 
   return (
     <div style={{ paddingTop: '100px' }}>
@@ -900,13 +901,13 @@ function DemoPage() {
             margin: 0,
             marginBottom: '0.5rem'
           }}>
-            🚀 Interactive Solution Demos
+            {t('demo.title')}
           </h1>
           <p className="text-lg" style={{
             color: 'rgba(255, 255, 255, 0.8)',
             margin: 0
           }}>
-            Experience our digital transformation solutions in action
+            {t('demo.subtitle')}
           </p>
         </div>
 
@@ -931,8 +932,8 @@ function DemoPage() {
           >
             <Users size={24} />
             <div style={{ textAlign: 'left' }}>
-              <div>Smart Farmer Platform</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>₹2 Cr Investment</div>
+              <div>{t('demo.farmerPlatform')}</div>
+              <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>{t('solutions.farmerPlatform.investment')} {t('common.investment')}</div>
             </div>
           </button>
 
@@ -950,8 +951,8 @@ function DemoPage() {
           >
             <Factory size={24} />
             <div style={{ textAlign: 'left' }}>
-              <div>Digital Twin & AI</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>₹3 Cr Investment</div>
+              <div>{t('demo.digitalTwin')}</div>
+              <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>{t('solutions.digitalTwin.investment')} {t('common.investment')}</div>
             </div>
           </button>
 
@@ -969,8 +970,8 @@ function DemoPage() {
           >
             <Globe size={24} />
             <div style={{ textAlign: 'left' }}>
-              <div>Supply Chain & ESG</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>₹4 Cr Investment</div>
+              <div>{t('demo.supplyChain')}</div>
+              <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>{t('solutions.supplyChain.investment')} {t('common.investment')}</div>
             </div>
           </button>
         </div>
