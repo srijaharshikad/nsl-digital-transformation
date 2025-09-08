@@ -251,8 +251,7 @@ export default function DigitalTwinPanel() {
 
   if (!sensorData) {
     return (
-      <div style={{ 
-        padding: '1.5rem', 
+      <div className="container" style={{ 
         background: 'transparent',
         position: 'relative'
       }}>
@@ -296,8 +295,7 @@ export default function DigitalTwinPanel() {
   };
 
   return (
-    <div style={{ 
-      padding: '1.5rem', 
+    <div className="container" style={{ 
       background: 'transparent',
       position: 'relative'
     }}>
@@ -409,10 +407,8 @@ export default function DigitalTwinPanel() {
       </div>
 
       {/* Metrics Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-        gap: '1.5rem',
+      <div className="grid grid-cols-1 grid-cols-sm-2 grid-cols-lg-4" style={{
+        gap: '1rem',
         marginBottom: '2rem'
       }}>
         <MetricTile
@@ -450,10 +446,8 @@ export default function DigitalTwinPanel() {
       </div>
 
       {/* Charts Section */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '2fr 1fr',
-        gap: '1.5rem',
+      <div className="grid grid-cols-1 grid-cols-lg-2" style={{
+        gap: '1rem',
         marginBottom: '2rem'
       }}>
         {/* Live Data Chart */}
@@ -490,7 +484,7 @@ export default function DigitalTwinPanel() {
           
           <div style={{ position: 'relative', zIndex: 1 }}>
             <SafeChart data={dataHistory}>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={250}>
                 <LineChart 
                   data={dataHistory || []}
                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -577,7 +571,7 @@ export default function DigitalTwinPanel() {
           
           <div style={{ position: 'relative', zIndex: 1 }}>
             <SafeChart data={dataHistory}>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={250}>
                 <AreaChart 
                   data={dataHistory || []}
                   margin={{ top: 10, right: 30, left: 0, bottom: 0 }}

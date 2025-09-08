@@ -5,6 +5,8 @@ import {Truck, Activity, Database, ChevronRight, Target, TrendingUp, Shield, Lea
 import DigitalTwinPanel from './components/DigitalTwinPanel.jsx';
 import FarmerPlatform from './components/FarmerPlatform.jsx';
 import SupplyChainESG from './components/SupplyChainESG.jsx';
+import NSLChatbot from './components/NSLChatbot.jsx';
+import ProactiveOnboarding from './components/ProactiveOnboarding.jsx';
 
 // --- Mock Data ---
 const mockYield = [
@@ -25,75 +27,154 @@ const mockInventory = [
 
 // --- Components ---
 function TopNav({active, setActive}){
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <div style={{
-      display:"flex",
-      justifyContent:"space-between",
-      alignItems:"center",
-      padding:"1.5rem 2rem",
-      background:"rgba(0, 0, 0, 0.2)",
-      backdropFilter:"blur(20px)",
-      borderBottom:"1px solid rgba(255, 255, 255, 0.1)",
-      position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-      zIndex: 1000
-    }}>
-      <div>
-        <h2 style={{
-          margin:0,
-          color:"white",
-          fontSize:"1.5rem",
-          fontWeight:"700",
-          letterSpacing:"-0.025em"
-        }}>
-          🌱 NSL Sugars Digital Transformation
-        </h2>
-        <p style={{
-          margin:0,
-          marginTop:"0.25rem",
-          color:"rgba(255, 255, 255, 0.8)",
-          fontSize:"0.875rem"
-        }}>
-          Revolutionizing Agriculture Through Technology
-        </p>
+    <>
+      <div style={{
+        display:"flex",
+        justifyContent:"space-between",
+        alignItems:"center",
+        padding:"1rem",
+        background:"rgba(0, 0, 0, 0.2)",
+        backdropFilter:"blur(20px)",
+        borderBottom:"1px solid rgba(255, 255, 255, 0.1)",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000
+      }}>
+        <div style={{ flex: 1 }}>
+          <h2 style={{
+            margin:0,
+            color:"white",
+            fontSize:"1.125rem",
+            fontWeight:"700",
+            letterSpacing:"-0.025em"
+          }}>
+            🌱 NSL Sugars
+          </h2>
+          <p style={{
+            margin:0,
+            marginTop:"0.125rem",
+            color:"rgba(255, 255, 255, 0.8)",
+            fontSize:"0.75rem",
+            display: window.innerWidth < 640 ? 'none' : 'block'
+          }}>
+            Digital Transformation
+          </p>
+        </div>
+
+        {/* Desktop Navigation */}
+        <div style={{
+          display:"flex",
+          gap:"0.5rem",
+          '@media (max-width: 767px)': {
+            display: 'none'
+          }
+        }} className="hidden-mobile">
+          <button 
+            className={`nav-button ${active === 'overview' ? 'active' : ''}`}
+            onClick={()=>setActive('overview')}
+          >
+            🏠 <span className="hidden-mobile">Overview</span>
+          </button>
+          <button 
+            className={`nav-button ${active === 'solutions' ? 'active' : ''}`}
+            onClick={()=>setActive('solutions')}
+          >
+            💡 <span className="hidden-mobile">Solutions</span>
+          </button>
+          <button 
+            className={`nav-button ${active === 'demo' ? 'active' : ''}`}
+            onClick={()=>setActive('demo')}
+          >
+            🚀 <span className="hidden-mobile">Live Demo</span>
+          </button>
+          <button 
+            className={`nav-button ${active === 'roadmap' ? 'active' : ''}`}
+            onClick={()=>setActive('roadmap')}
+          >
+            📅 <span className="hidden-mobile">Roadmap</span>
+          </button>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button 
+          className="mobile-only nav-button"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          style={{
+            padding: '0.5rem',
+            minWidth: '44px'
+          }}
+        >
+          {mobileMenuOpen ? '✕' : '☰'}
+        </button>
       </div>
-      <div style={{display:"flex",gap:"0.75rem"}}>
-        <button 
-          className={`nav-button ${active === 'overview' ? 'active' : ''}`}
-          onClick={()=>setActive('overview')}
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: '70px',
+            left: 0,
+            right: 0,
+            background: 'rgba(0, 0, 0, 0.95)',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderTop: 'none',
+            padding: '1rem',
+            zIndex: 999
+          }}
+          className="mobile-only"
         >
-          🏠 Overview
-        </button>
-        <button 
-          className={`nav-button ${active === 'solutions' ? 'active' : ''}`}
-          onClick={()=>setActive('solutions')}
-        >
-          💡 Solutions
-        </button>
-        <button 
-          className={`nav-button ${active === 'demo' ? 'active' : ''}`}
-          onClick={()=>setActive('demo')}
-        >
-          🚀 Live Demo
-        </button>
-        <button 
-          className={`nav-button ${active === 'roadmap' ? 'active' : ''}`}
-          onClick={()=>setActive('roadmap')}
-        >
-          📅 Roadmap
-        </button>
-      </div>
-    </div>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.75rem'
+          }}>
+            <button 
+              className={`nav-button ${active === 'overview' ? 'active' : ''}`}
+              onClick={()=>{setActive('overview'); setMobileMenuOpen(false);}}
+              style={{ justifyContent: 'flex-start' }}
+            >
+              🏠 Overview
+            </button>
+            <button 
+              className={`nav-button ${active === 'solutions' ? 'active' : ''}`}
+              onClick={()=>{setActive('solutions'); setMobileMenuOpen(false);}}
+              style={{ justifyContent: 'flex-start' }}
+            >
+              💡 Solutions
+            </button>
+            <button 
+              className={`nav-button ${active === 'demo' ? 'active' : ''}`}
+              onClick={()=>{setActive('demo'); setMobileMenuOpen(false);}}
+              style={{ justifyContent: 'flex-start' }}
+            >
+              🚀 Live Demo
+            </button>
+            <button 
+              className={`nav-button ${active === 'roadmap' ? 'active' : ''}`}
+              onClick={()=>{setActive('roadmap'); setMobileMenuOpen(false);}}
+              style={{ justifyContent: 'flex-start' }}
+            >
+              📅 Roadmap
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
 // Hero Section Component
 function HeroSection() {
   return (
-    <div style={{
-      padding: "8rem 2rem 4rem",
+    <div className="container" style={{
+      padding: "5rem 1rem 3rem",
       textAlign: "center",
       position: "relative",
       overflow: "hidden"
@@ -110,8 +191,7 @@ function HeroSection() {
       }} />
       
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-        <h1 style={{
-          fontSize: "4rem",
+        <h1 className="text-3xl" style={{
           fontWeight: "bold",
           color: "white",
           marginBottom: "1.5rem",
@@ -123,23 +203,20 @@ function HeroSection() {
           🌱 NSL Sugars Digital Future
         </h1>
         
-        <p style={{
-          fontSize: "1.5rem",
+        <p className="text-lg" style={{
           color: "rgba(255, 255, 255, 0.8)",
-          marginBottom: "3rem",
+          marginBottom: "2rem",
           maxWidth: "800px",
-          margin: "0 auto 3rem",
+          margin: "0 auto 2rem",
           lineHeight: 1.6
         }}>
           Transforming agriculture through AI-powered solutions, digital twins, and sustainable innovation. 
           From farm to factory, we're building the future of sugar production.
         </p>
         
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: "2rem",
-          marginTop: "4rem"
+        <div className="grid grid-cols-1 grid-cols-md-3" style={{
+          gap: "1rem",
+          marginTop: "2rem"
         }}>
           <div className="glass-card" style={{ padding: "2rem", textAlign: "center" }}>
             <div style={{
@@ -779,9 +856,8 @@ function DemoPage() {
   return (
     <div style={{ paddingTop: '100px' }}>
       {/* Demo Navigation */}
-      <div className="glass-card" style={{
-        margin: '0 2rem 2rem',
-        padding: '2rem',
+      <div className="glass-card container" style={{
+        marginBottom: '2rem',
         position: 'relative',
         overflow: 'hidden'
       }}>
@@ -796,8 +872,7 @@ function DemoPage() {
         }} />
         
         <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', marginBottom: '2rem' }}>
-          <h1 style={{
-            fontSize: '3rem',
+          <h1 className="text-3xl" style={{
             fontWeight: 'bold',
             color: 'white',
             margin: 0,
@@ -805,22 +880,20 @@ function DemoPage() {
           }}>
             🚀 Interactive Solution Demos
           </h1>
-          <p style={{
+          <p className="text-lg" style={{
             color: 'rgba(255, 255, 255, 0.8)',
-            margin: 0,
-            fontSize: '1.2rem'
+            margin: 0
           }}>
             Experience our digital transformation solutions in action
           </p>
         </div>
 
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
+        <div className="grid grid-cols-1 grid-cols-md-3" style={{
           gap: '1rem',
-          flexWrap: 'wrap',
           position: 'relative',
-          zIndex: 1
+          zIndex: 1,
+          maxWidth: '900px',
+          margin: '0 auto'
         }}>
           <button
             onClick={() => setActiveDemo('farmer')}
@@ -882,7 +955,7 @@ function DemoPage() {
       </div>
 
       {/* Demo Content */}
-      <div style={{ margin: '0 1rem' }}>
+      <div className="container">
         {activeDemo === 'farmer' && <FarmerPlatform />}
         {activeDemo === 'twin' && <DigitalTwinPanel />}
         {activeDemo === 'supply' && <SupplyChainESG />}
@@ -903,6 +976,16 @@ function RoadmapPage() {
 // --- Main App ---
 export default function App(){
   const [active, setActive] = useState('overview');
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [showChatbot, setShowChatbot] = useState(false);
+
+  const handleNavigation = (target, demo = null) => {
+    setActive(target);
+    if (demo && target === 'demo') {
+      // We'll need to pass the demo selection to DemoPage
+      // For now, just navigate to demo page
+    }
+  };
   
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -912,6 +995,18 @@ export default function App(){
       {active === 'solutions' && <SolutionsPage />}
       {active === 'demo' && <DemoPage />}
       {active === 'roadmap' && <RoadmapPage />}
+
+      {/* Proactive Onboarding */}
+      <ProactiveOnboarding
+        onComplete={() => setShowOnboarding(false)}
+        onNavigate={handleNavigation}
+        onShowChatbot={() => setShowChatbot(true)}
+      />
+
+      {/* NSL Chatbot */}
+      <NSLChatbot
+        onNavigate={handleNavigation}
+      />
       
       <footer style={{
         padding: "3rem 2rem 2rem",
